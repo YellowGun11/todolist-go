@@ -1,0 +1,6 @@
+{
+  "mongodb": {
+    "hosts": ""
+  },
+  "redis": {}
+}
