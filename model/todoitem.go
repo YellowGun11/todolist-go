@@ -1,6 +1,9 @@
 package model
 
-import "github.com/globalsign/mgo/bson"
+import (
+	"github.com/globalsign/mgo/bson"
+	"time"
+)
 
 type TODOItem struct {
 	ID             bson.ObjectId `json:"id" bson:"_id"`
@@ -10,5 +13,7 @@ type TODOItem struct {
 	Content        string        `json:"content" bson:"content"`
 	Status         uint32        `json:"status" bson:"status"`
 	CompletionTime uint64        `json:"completion_time" bson:"completion_time"`
-	DeletedTime    uint64        `json:"deleted_time" bson:"deleted_time"`
+	CreatedAt      time.Time     `json:"created_at" bson:"created_at"`
+	UpdatedAt      time.Time     `json:"updated_at" bson:"updated_at"`
+	DeletedAt      time.Time     `json:"-" bson:"deleted_time"`
 }
