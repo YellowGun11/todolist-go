@@ -16,7 +16,7 @@ func HttpRegister(router *gin.RouterGroup, relativePath string, restAPI interfac
 		if postPath, ok := restAPI.(HttpPostPathDescriptor); ok {
 			httpPostPath = postPath.HttpPostPath()
 		}
-		router.GET(MergeURL(relativePath, httpPostPath), post.POST)
+		router.POST(MergeURL(relativePath, httpPostPath), post.POST)
 	}
 
 	if put, ok := restAPI.(Put); ok {
@@ -24,7 +24,7 @@ func HttpRegister(router *gin.RouterGroup, relativePath string, restAPI interfac
 		if putPath, ok := restAPI.(HttpPutPathDescriptor); ok {
 			httpPutPath = putPath.HttpPutPath()
 		}
-		router.GET(MergeURL(relativePath, httpPutPath), put.PUT)
+		router.PUT(MergeURL(relativePath, httpPutPath), put.PUT)
 	}
 
 	if patch, ok := restAPI.(Patch); ok {
@@ -32,7 +32,7 @@ func HttpRegister(router *gin.RouterGroup, relativePath string, restAPI interfac
 		if patchPath, ok := restAPI.(HttpPatchPathDescriptor); ok {
 			httpPatchPath = patchPath.HttpPatchPath()
 		}
-		router.GET(MergeURL(relativePath, httpPatchPath), patch.PATCH)
+		router.PATCH(MergeURL(relativePath, httpPatchPath), patch.PATCH)
 	}
 
 	if delete_, ok := restAPI.(Delete); ok {
@@ -40,6 +40,6 @@ func HttpRegister(router *gin.RouterGroup, relativePath string, restAPI interfac
 		if deletePath, ok := restAPI.(HttpDeletePathDescriptor); ok {
 			httpDeletePath = deletePath.HttpDeletePath()
 		}
-		router.GET(MergeURL(relativePath, httpDeletePath), delete_.DELETE)
+		router.DELETE(MergeURL(relativePath, httpDeletePath), delete_.DELETE)
 	}
 }

@@ -20,3 +20,27 @@ func (demo *Demo) GET(c *gin.Context) {
 		"message": "here is demo get method",
 	})
 }
+
+func (demo *Demo) POST(c *gin.Context) {
+	c.JSON(http.StatusOK, map[string]string{
+		"message": "here is demo post method",
+	})
+}
+
+func (demo *Demo) PUT(c *gin.Context) {
+	c.JSON(http.StatusOK, map[string]string{
+		"message": "here is demo put method",
+	})
+}
+
+func (demo *Demo) PATCH(c *gin.Context) {
+	c.JSON(http.StatusOK, map[string]string{
+		"message": "here is demo patch method",
+	})
+}
+
+func (demo *Demo) DELETE(c *gin.Context) {
+	c.JSON(http.StatusOK, map[string]string{
+		"message": "here is demo delete method",
+	})
+}
