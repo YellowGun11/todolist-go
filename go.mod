@@ -3,6 +3,7 @@ module github.com/siskinc/todolist-go
 go 1.13
 
 require (
+	github.com/cweill/gotests v1.5.3 // indirect
 	github.com/garyburd/redigo v1.6.0
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.4.0
@@ -15,4 +16,5 @@ require (
 	github.com/siskinc/mgorm v0.0.0-20190813065419-f811a143c266
 	github.com/ugorji/go v1.1.7 // indirect
 	golang.org/x/sys v0.0.0-20190927073244-c990c680b611 // indirect
+	golang.org/x/tools v0.0.0-20190927191325-030b2cf1153e // indirect
 )
