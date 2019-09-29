@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/sirupsen/logrus"
 	"github.com/siskinc/todolist-go/routes/router"
+	_ "github.com/siskinc/todolist-go/routes/v1"
 )
 
 func init() {

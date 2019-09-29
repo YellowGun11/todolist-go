@@ -19,4 +19,5 @@ func Run() {
 	if nil != err {
 		logrus.Fatalf("Server run is err: %v", err)
 	}
+	logrus.Info("Server is running...")
 }
