@@ -6,13 +6,14 @@ import (
 )
 
 func MergeURL(first, second string) string {
-	firstEnd := len(first) - 1
-	if strings.HasSuffix(first, "/") {
-		firstEnd -= 1
+	first = strings.Trim(first, "/")
+	second = strings.Trim(second, "/")
+	if first == "" && second == "" {
+		return "/"
+	} else if first == "" {
+		return fmt.Sprintf("/%s", second)
+	} else if second == "" {
+		return fmt.Sprintf("/%s", first)
 	}
-	secondBegin := 0
-	if strings.HasPrefix(second, "/") {
-		secondBegin += 1
-	}
-	return fmt.Sprintf("%s/%s", first[:firstEnd], second[secondBegin:])
+	return fmt.Sprintf("/%s/%s", first, second)
 }
