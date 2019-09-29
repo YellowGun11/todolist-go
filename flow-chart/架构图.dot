@@ -1,0 +1,19 @@
+digraph 架构图 {
+    label="架构图"
+    bgcolor="beige"
+
+    node[color="grey"]
+
+    dispatch
+    server[label="后端服务器"]
+    redis
+    MongoDB
+    sendMailServer
+    staticServer
+
+    dispatch -> {server, staticServer}
+    {server, sendMailServer} -> redis[dir="both"]
+    server -> MongoDB
+
+    {rank=same; server, sendMailServer, staticServer}
+}

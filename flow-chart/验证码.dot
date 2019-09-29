@@ -1,0 +1,17 @@
+digraph 验证码处理流程 {
+    label="验证码处理流程"
+    bgcolor="beige"
+
+    node[color="grey"]
+
+    user[label="用户", shape="box"]
+    server[label="服务器"]
+    user -> server[label="点击发送验证码"]
+    redis
+    server -> redis[label="发送验证码和email到redis"]
+    redis -> sendMailServer[label="通过订阅发布发送验证码和email"]
+    sendMailServer -> user[label="发送验证码"]
+    user -> server[label="校验验证码"]
+
+    {rank=same; server, sendMailServer}
+}
