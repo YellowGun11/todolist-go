@@ -2,14 +2,14 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/siskinc/todolist-go/httpx"
+	"github.com/siskinc/go-easy/common/ginx"
 	"net/http"
 )
 
 var DemoRouter = Version1Router.Group("/demo/")
 
 func init() {
-	httpx.HttpRegister(DemoRouter, "/", &Demo{})
+	ginx.HttpRegister(DemoRouter, "/", &Demo{})
 }
 
 type Demo struct {

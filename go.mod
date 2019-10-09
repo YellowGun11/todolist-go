@@ -3,18 +3,17 @@ module github.com/siskinc/todolist-go
 go 1.13
 
 require (
-	github.com/cweill/gotests v1.5.3 // indirect
-	github.com/garyburd/redigo v1.6.0
-	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.4.0
-	github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8 // indirect
-	github.com/golang/protobuf v1.3.2 // indirect
-	github.com/json-iterator/go v1.1.7 // indirect
-	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
-	github.com/mattn/go-isatty v0.0.9 // indirect
+	github.com/google/go-cmp v0.2.0 // indirect
+	github.com/kr/pretty v0.1.0 // indirect
+	github.com/magiconair/properties v1.8.1 // indirect
 	github.com/sirupsen/logrus v1.4.2
-	github.com/siskinc/mgorm v0.0.0-20190813065419-f811a143c266
+	github.com/siskinc/go-easy v0.0.0-20191009083250-113aba4856bb
+	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/tidwall/pretty v1.0.0 // indirect
 	github.com/ugorji/go v1.1.7 // indirect
-	golang.org/x/sys v0.0.0-20190927073244-c990c680b611 // indirect
-	golang.org/x/tools v0.0.0-20190927191325-030b2cf1153e // indirect
+	go.mongodb.org/mongo-driver v1.1.2
+	golang.org/x/net v0.0.0-20190620200207-3b0461eec859 // indirect
+	golang.org/x/text v0.3.2 // indirect
+	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 )

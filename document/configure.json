@@ -1,7 +1,6 @@
 {
   "mongodb": {
-    "hosts": "127.0.0.1:27017",
-    "connect_timeout_second": 30,
+    "uri": "mongodb://127.0.0.1:27017",
     "database": "todo-list"
   },
   "redis": {

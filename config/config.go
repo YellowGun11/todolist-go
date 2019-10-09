@@ -1,9 +1,11 @@
 package config
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/sirupsen/logrus"
-	"github.com/siskinc/mgorm"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"io/ioutil"
 )
 
@@ -24,22 +26,22 @@ func init() {
 		logrus.Fatalf("Unmarshal configure is err: %v", err)
 	}
 
-	err = mgorm.DefaultMgoInfo(
-		config.MongoDB.Hosts,
-		config.MongoDB.Database,
-		config.MongoDB.Username,
-		config.MongoDB.Password,
-		config.MongoDB.ConnectTimeoutSecond,
-	)
+	clientOptions := options.Client().ApplyURI(config.MongoDB.URI)
+	config.MongoDBClient, err = mongo.NewClient(clientOptions)
 	if nil != err {
-		logrus.Fatalf("set mongodb default infomation is err: %v", err)
+		logrus.Fatalf("New Mongodb Client is err: %s, URI is : %s", err, config.MongoDB.URI)
+	}
+	err = config.MongoDBClient.Connect(context.Background())
+	if nil != err {
+		logrus.Fatalf("connect mongodb is err: %s", err)
 	}
 }
 
 type Configure struct {
-	MongoDB *MongoDBInfo `json:"mongodb"`
-	Redis   *RedisInfo   `json:"redis"`
-	Gin     Gin          `json:"gin"`
+	MongoDB       *MongoDBInfo  `json:"mongodb"`
+	Redis         *RedisInfo    `json:"redis"`
+	Gin           Gin           `json:"gin"`
+	MongoDBClient *mongo.Client `json:"-"`
 }
 
 func GetConfigure() Configure {
