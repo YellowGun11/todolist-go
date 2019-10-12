@@ -7,6 +7,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"io/ioutil"
+	"path/filepath"
+	"runtime"
 )
 
 var config Configure
@@ -14,8 +16,9 @@ var config Configure
 func init() {
 	config.MongoDB = &MongoDBInfo{}
 	config.Redis = &RedisInfo{}
-	configureFilePath := "./document/configure.json"
-
+	_, filename, _, _ := runtime.Caller(0)
+	projectRoot := filepath.Join(filepath.Dir(filename), "..")
+	configureFilePath := filepath.Join(projectRoot, "./document/configure.json")
 	configureByte, err := ioutil.ReadFile(configureFilePath)
 	if nil != err {
 		logrus.Fatalf("Open configure file %v is err: %v", configureFilePath, err)

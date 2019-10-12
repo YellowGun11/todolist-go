@@ -1,12 +1,11 @@
 package v1
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"github.com/siskinc/go-easy/common/ginx"
 	"github.com/siskinc/todolist-go/db"
-	"net/http"
+	"github.com/siskinc/todolist-go/module/errcode"
 )
 
 var UserRouter = Version1Router.Group("/user")
@@ -22,41 +21,41 @@ type UserRegisterPost struct {
 	Username   string `json:"username"`
 	Password   string `json:"password"`
 	RePassword string `json:"re_password"`
+	Email      string `json:"email"`
 }
 
 func (data *UserRegisterPost) CheckPassword() error {
 	if data.Password != data.RePassword {
-		return fmt.Errorf("两次密码不一致")
+		return errcode.ResponseErrorCodeRePassword
 	}
 	return nil
 }
 
 func (req *UserRegister) POST(c *gin.Context) {
 	data := &UserRegisterPost{}
-	err := ginx.BindAll(c, data)
+	err := c.BindJSON(data)
+	//err := ginx.BindAll(c, data)
+
 	if nil != err {
-		c.JSON(http.StatusBadRequest, nil)
+		ginx.MakeErrorResponse(c, err)
 		return
 	}
 	err = data.CheckPassword()
 	if nil != err {
-		c.JSON(509, map[string]interface{}{
-			"err": err.Error(),
-		})
+		ginx.MakeErrorResponse(c, err)
 		return
 	}
 	user := db.User{
 		Username: data.Username,
 		Password: data.Password,
+		Email:    data.Email,
 	}
 	oid, err := user.Save()
 	if nil != err {
-		c.JSON(509, map[string]interface{}{
-			"err": err.Error(),
-		})
+		ginx.MakeErrorResponse(c, err)
 		return
 	}
-	c.JSON(http.StatusCreated, oid)
+	ginx.MakeResponse(c, oid)
 }
 
 type UserLogin struct{}
@@ -70,26 +69,20 @@ func (u *UserLogin) POST(c *gin.Context) {
 	data := &UserLoginPost{}
 	err := ginx.BindAll(c, data)
 	if nil != err {
-		c.JSON(http.StatusBadRequest, nil)
+		ginx.MakeErrorResponse(c, err)
 		return
 	}
 	logrus.Info(data)
 	user := &db.User{}
 	err = user.FindByUsername(data.Username)
 	if nil != err {
-		c.JSON(509, map[string]interface{}{
-			"err": "用户名或密码错误1",
-		})
+		ginx.MakeErrorResponse(c, err)
 		return
 	}
 	if user.Password != data.Password {
-		c.JSON(509, map[string]interface{}{
-			"err": "用户名或密码错误2",
-		})
+		ginx.MakeErrorResponse(c, err)
 		return
 	}
-	c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "成功",
-	})
+	ginx.MakeResponse(c, nil)
 	return
 }
