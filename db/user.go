@@ -11,6 +11,7 @@ import (
 //@def delete_at DeletedAt
 //@def unique_index Username
 //@def unique_index Email
+//@def unique_index Nickname
 type User struct {
 	ID          primitive.ObjectID `json:"id" bson:"_id"`
 	Username    string             `json:"username" bson:"username"`

@@ -11,22 +11,16 @@ import (
 	"testing"
 )
 
-func performRequest(r http.Handler, method, path string) *httptest.ResponseRecorder {
-	req, _ := http.NewRequest(method, path, nil)
-	w := httptest.NewRecorder()
-	r.ServeHTTP(w, req)
-	return w
-}
-
 func TestUserRegister_POST(t *testing.T) {
 	httptest.NewRecorder()
 	r := router.Router
 	// 使用抓取到的处理程序执行一个 GET 请求。
 	data, _ := json.Marshal(map[string]string{
-		"username":    "123456789",
+		"username":    "1234567891",
 		"password":    "123456789",
 		"re_password": "123456789",
-		"email":       "123456789",
+		"email":       "1234567891",
+		"nickname":    "123456789",
 	})
 
 	body := strings.NewReader(string(data))

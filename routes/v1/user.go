@@ -22,6 +22,7 @@ type UserRegisterPost struct {
 	Password   string `json:"password"`
 	RePassword string `json:"re_password"`
 	Email      string `json:"email"`
+	Nickname   string `json:"nickname"`
 }
 
 func (data *UserRegisterPost) CheckPassword() error {
@@ -49,6 +50,7 @@ func (req *UserRegister) POST(c *gin.Context) {
 		Username: data.Username,
 		Password: data.Password,
 		Email:    data.Email,
+		Nickname: data.Nickname,
 	}
 	oid, err := user.Save()
 	if nil != err {
@@ -62,12 +64,11 @@ type UserLogin struct{}
 type UserLoginPost struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
-	AAA      string `form:"aaa"`
 }
 
 func (u *UserLogin) POST(c *gin.Context) {
 	data := &UserLoginPost{}
-	err := ginx.BindAll(c, data)
+	err := c.BindJSON(data)
 	if nil != err {
 		ginx.MakeErrorResponse(c, err)
 		return
